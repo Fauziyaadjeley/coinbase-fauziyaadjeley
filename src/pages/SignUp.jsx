@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import api from "../api/api";
 import AuthLayout from "../components/layout/AuthLayout";
@@ -15,6 +15,7 @@ function SignUp() {
   const [error, setError] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const navigate = useNavigate();
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -40,12 +41,7 @@ function SignUp() {
 
     try {
       await api.post("/auth/register", formData);
-      setSuccessMessage("Account created successfully. You can now sign in.");
-      setFormData({
-        name: "",
-        email: "",
-        password: "",
-      });
+      navigate("/signin", { replace: true });
     } catch (requestError) {
       setError(getErrorMessage(requestError));
     } finally {

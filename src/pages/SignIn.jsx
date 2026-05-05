@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { Eye, EyeOff } from "lucide-react";
 import api from "../api/api";
 import { setAuthSession } from "../utils/auth";
 import AuthLayout from "../components/layout/AuthLayout";
@@ -15,6 +16,7 @@ function SignIn() {
   });
   const [error, setError] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -74,15 +76,30 @@ function SignIn() {
           required
         />
 
-        <AuthInput 
-          label="Password"
-          name="password"
-          type="password"
-          value={formData.password}
-          onChange={handleChange}
-          placeholder="Your password"
-          required
-        />
+        <div className="mt-8">
+          <label className="mb-3 block text-[16px] font-semibold text-black">
+            Password
+          </label>
+          <div className="relative">
+            <input
+              type={showPassword ? "text" : "password"}
+              name="password"
+              value={formData.password}
+              onChange={handleChange}
+              placeholder="Your password"
+              required
+              className="h-[62px] w-full rounded-[12px] border border-[#aeb4bf] px-5 pr-12 text-[17px] text-[#4b5563] outline-none focus:border-[#1652f0]"
+            />
+            <button
+              type="button"
+              onClick={() => setShowPassword((value) => !value)}
+              className="absolute inset-y-0 right-4 inline-flex items-center justify-center rounded-full text-[#6b7280] transition-colors duration-200 hover:text-[#111827]"
+              aria-label={showPassword ? "Hide password" : "Show password"}
+            >
+              {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+            </button>
+          </div>
+        </div>
 
         {error && (
           <p className="mt-4 text-[14px] font-medium text-red-600">
