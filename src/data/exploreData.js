@@ -9,20 +9,8 @@ import tetherLogo from "../assets/images/tether.png";
 import bnbLogo from "../assets/images/bnb.png";
 import xrpLogo from "../assets/images/xrp.png";
 import usdcLogo from "../assets/images/usdc.png";
-import hyperliquidLogo from "../assets/images/hyperliquid.png";
-import jupiterLogo from "../assets/images/jupiter.png";
-import subsquidLogo from "../assets/images/aventus.png";
-import plumeLogo from "../assets/images/plume.png";
-import sentientLogo from "../assets/images/sentient.png";
-import walrusLogo from "../assets/images/walrus.png";
-import raydiumLogo from "../assets/images/raydium.png";
-import parclLogo from "../assets/images/parcl.png";
-import polkastarterLogo from "../assets/images/polkastarter.png";
-import kiteLogo from "../assets/images/kite.png";
-import swellLogo from "../assets/images/assembleai.png";
 import dogecoinLogo from "../assets/images/dogecoin.png";
 import cardanoLogo from "../assets/images/cardano.png";
-import alcxLogo from "../assets/images/aclx.png";
 import tronLogo from "../assets/images/tron.png";
 import solanaLogo from "../assets/images/solana.png";
 
@@ -54,72 +42,6 @@ export const statsCards = [
     change: "↘ 0.06%",
     changeColor: "text-[#ea3943]",
     chart: btcDominanceChart,
-  },
-];
-
-export const topMovers = [
-  {
-    symbol: "ALCX",
-    change: "↙ 23.80%",
-    price: "GHS 63.46",
-    changeColor: "text-[#ea3943]",
-    logoBg: "bg-[#1d1717]",
-    logo: alcxLogo,
-  },
-  {
-    symbol: "SQD",
-    change: "↗ 22.30%",
-    price: "GHS 0.47",
-    changeColor: "text-[#098551]",
-    logoBg: "bg-[#2d2f92]",
-    logo: subsquidLogo,
-  },
-  {
-    symbol: "SENT",
-    change: "↘ 4.22%",
-    price: "GHS 0.25",
-    changeColor: "text-[#ea3943]",
-    logoBg: "bg-[#000000]",
-    logo: sentientLogo,
-  },
-  {
-    symbol: "PLUME",
-    change: "↗ 16.73%",
-    price: "GHS 0.14",
-    changeColor: "text-[#098551]",
-    logoBg: "bg-[#ff5a14]",
-    logo: plumeLogo,
-  },
-];
-
-export const newOnCoinbase = [
-  {
-    symbol: "SQD",
-    name: "Subsquid",
-    added: "Added Feb 5",
-    logoBg: "bg-[#2d2f92]",
-    logo: subsquidLogo,
-  },
-  {
-    symbol: "PLUME",
-    name: "Plume",
-    added: "Added Jan 28",
-    logoBg: "bg-[#ff5a14]",
-    logo: plumeLogo,
-  },
-  {
-    symbol: "HYPE",
-    name: "Hyperliquid",
-    added: "Added Feb 5",
-    logoBg: "bg-[#0f3a35]",
-    logo: hyperliquidLogo,
-  },
-  {
-    symbol: "JUPITER",
-    name: "Jupiter",
-    added: "Added Dec 9",
-    logoBg: "bg-[#10253d]",
-    logo: jupiterLogo,
   },
 ];
 

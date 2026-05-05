@@ -1,27 +1,27 @@
 import { useState } from "react";
-import { tradableCoins, topGainers, newCoins } from "../../data/marketData";
 
-function MarketCard() {
-  const [activeTab, setActiveTab] = useState("new");
+function MarketCard({ coinsByTab = {}, initialTab = "new", isLoading = false }) {
+  const [activeTab, setActiveTab] = useState(initialTab);
 
   const tabs = [
-    { id: "tradable", label: "Tradable" },
-    { id: "gainers", label: "Top gainers" },
-    { id: "new", label: "New on Coinbase" },
+    { id: "tradable", label: "Tradable", emptyLabel: "tradable crypto" },
+    { id: "gainers", label: "Top gainers", emptyLabel: "top gainer" },
+    { id: "new", label: "New on Coinbase", emptyLabel: "new listing" },
   ];
 
   const getCoins = () => {
-    if (activeTab === "tradable") return tradableCoins;
-    if (activeTab === "gainers") return topGainers;
-    return newCoins;
+    if (activeTab === "tradable") return coinsByTab.tradable || [];
+    if (activeTab === "gainers") return coinsByTab.gainers || [];
+    return coinsByTab.new || [];
   };
 
   const coins = getCoins();
+  const activeTabDetails = tabs.find((tab) => tab.id === activeTab) || tabs[0];
 
   return (
     <div className="w-full max-w-[680px] rounded-[40px] bg-black px-10 py-9 text-white">
       {/* Tabs */}
-      <div className="flex items-center gap-4 text-[18px] font-medium">
+      <div className="flex flex-wrap items-center gap-4 text-[18px] font-medium">
         {tabs.map((tab) => {
           const isActive = activeTab === tab.id;
 
@@ -40,26 +40,51 @@ function MarketCard() {
         })}
       </div>
 
+      <p className="mt-5 text-[13px] font-medium uppercase tracking-[0.08em] text-[#8b93a6]">
+        {activeTabDetails.label} · {coins.length} {coins.length === 1 ? "asset" : "assets"}
+      </p>
+
       {/* Coin list */}
       <div className="mt-10 space-y-7">
-        {coins.map((coin) => {
-          const isPositive = coin.change.includes("↗");
-          const isNeutral = coin.change === "--";
+        {isLoading && (
+          <p className="py-8 text-center text-[16px] text-[#8b93a6]">
+            Loading {activeTabDetails.emptyLabel} data...
+          </p>
+        )}
+
+        {!isLoading && coins.length === 0 && (
+          <p className="py-8 text-center text-[16px] text-[#8b93a6]">
+            No {activeTabDetails.emptyLabel} data available
+          </p>
+        )}
+
+        {!isLoading && coins.map((coin) => {
+          const isPositive = coin.change.includes("+") || Number.parseFloat(coin.change) > 0;
+          const isNeutral = coin.change === "--" || coin.change === "0.00%";
 
           return (
-            <div key={coin.name} className="flex items-center justify-between">
+            <div key={`${coin.symbol || coin.name}-${coin.name}`} className="flex items-center justify-between">
               <div className="flex items-center gap-5">
                 <div className="flex h-10 w-10 items-center justify-center rounded-full bg-white">
-                  <img
-                    src={coin.logo}
-                    alt={coin.name}
-                    className="h-7 w-7 object-contain"
-                  />
+                  {coin.logo && (
+                    <img
+                      src={coin.logo}
+                      alt={coin.name}
+                      className="h-7 w-7 object-contain"
+                    />
+                  )}
                 </div>
 
-                <span className="text-[30px] font-normal tracking-[-0.04em]">
-                  {coin.name}
-                </span>
+                <div>
+                  <span className="block text-[30px] font-normal tracking-[-0.04em]">
+                    {coin.name}
+                  </span>
+                  {coin.symbol && (
+                    <span className="block text-[15px] uppercase text-[#8b93a6]">
+                      {coin.symbol}
+                    </span>
+                  )}
+                </div>
               </div>
 
               <div className="text-right">
